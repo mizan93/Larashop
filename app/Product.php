@@ -8,11 +8,15 @@ class Product extends Model
 {
     public function cat()
     {
-        return $this->belongsTo('App\Category');
+        return $this->belongsToMany('App\Category')->withTimestamps();
 
     }
     public function brand()
     {
-        return $this->belongsTo('App\Brand');
+        return $this->belongsToMany('App\Brand')->withTimestamps();
+    }
+    public function review()
+    {
+        return $this->belongsToMany('App\Review')->withTimestamps();
     }
 }

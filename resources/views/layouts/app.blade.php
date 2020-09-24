@@ -13,16 +13,25 @@
     <link href="{{ asset('frontend/css/price-range.css')}}" rel="stylesheet">
     <link href="{{ asset('frontend/css/animate.css')}}" rel="stylesheet">
 	<link href="{{ asset('frontend/css/main.css')}}" rel="stylesheet">
-	<link href="{{ asset('frontend/css/responsive.css')}}" rel="stylesheet">
+    <link href="{{ asset('frontend/css/responsive.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->       
+    <![endif]-->
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+<style>
+                .error{
+               color: red;
+               font-style: bold;
+           }
+           </style>
+  @stack('css')
 </head><!--/head-->
 
 <body>
@@ -52,7 +61,7 @@
 				</div>
 			</div>
 		</div><!--/header_top-->
-		
+
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
@@ -71,7 +80,7 @@
 									<li><a href="#">UK</a></li>
 								</ul>
 							</div>
-							
+
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
 									DOLLAR
@@ -98,7 +107,7 @@
 				</div>
 			</div>
 		</div><!--/header-middle-->
-	
+
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
@@ -113,22 +122,22 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="" class="active">Home</a></li>
+								<li><a href="{{ route('home') }}" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html">Login</a></li> 
+										<li><a href="product-details.html">Product Details</a></li>
+										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="cart.html">Cart</a></li>
+										<li><a href="login.html">Login</a></li>
                                     </ul>
-                                </li> 
+                                </li>
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
 										<li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
-                                </li> 
+                                </li>
 								<li><a href="404.html">404</a></li>
 								<li><a href="contact-us.html">Contact</a></li>
 							</ul>
@@ -143,9 +152,9 @@
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-	
+
     @yield('content')
-	
+
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">
@@ -171,7 +180,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -186,7 +195,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -201,7 +210,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -226,7 +235,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">
@@ -288,11 +297,11 @@
 							</form>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
@@ -301,16 +310,34 @@
 				</div>
 			</div>
 		</div>
-		
-	</footer><!--/Footer-->
-	
 
-  
-    <script src="{{ asset('fronend/js/jquery.js')}}"></script>
+	</footer><!--/Footer-->
+
+
+
+    <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
 	<script src="{{ asset('fronend/js/bootstrap.min.js')}}"></script>
 	<script src="{{ asset('fronend/js/jquery.scrollUp.min.js')}}"></script>
 	<script src="{{ asset('fronend/js/price-range.js')}}"></script>
     <script src="{{ asset('fronend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{ asset('fronend/js/main.js')}}"></script>
+
+    <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
+
+  {!! Toastr::message() !!}
+@stack('js')
+<script>
+    @if($errors->any())
+    @foreach($errors->all() as $error)
+    toastr.error('{{ $error }}','Error',{
+        closeButton:true,
+        progressBar:true,
+    });
+    @endforeach
+      @endif
+</script>
 </body>
 </html>

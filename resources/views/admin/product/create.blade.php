@@ -41,7 +41,7 @@
                     @endforeach
                   </select>
                 </div>
-                  <div class="form-group">
+                  <div class="form-group"> 
                     <label for="exampleInputPassword1">Brand</label>
                   <select name="brand" class="form-control">
                     <option >Select a brand</option>
@@ -91,6 +91,7 @@
         },
         price:{
             required: true,
+            number:true
         },
         category:{
             required: true,
@@ -98,7 +99,7 @@
         brand:{
             required: true,
         },
-        
+
         description:{
             required: true,
         },

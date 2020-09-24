@@ -32,17 +32,16 @@
         <a href="{{ route('admin.dashboard') }}" class="nav-link">
             <i class="fas fa-tachometer-alt text-blue"></i>
           <p>
-            Dashboard @section('menu','Dashboard')
+            Dashboard
             {{-- <span class="right badge badge-danger">New</span> --}}
           </p>
         </a>
       </li>
-
-      <li class="{{ Request::is('admin/product*') ? 'active' : ''}}">
-        <a href="{{ route('admin.product.index') }}" class="nav-link">
+      <li class="{{ Request::is('admin/slider*') ? 'active' : ''}}">
+        <a href="{{ route('admin.slider.index') }}" class="nav-link">
             <i class="fas fa-table text-info"></i>
           <p>
-            Products @section('menu','Products')
+            Slider
           </p>
         </a>
       </li>
@@ -50,23 +49,41 @@
         <a href="{{ route('admin.category.index') }}" class="nav-link">
             <i class="fas fa-table text-info"></i>
           <p>
-            Categories @section('menu','Categories')
+            Categories
           </p>
         </a>
       </li>
-      <li class="{{ Request::is('admin/brand*') ? 'active' : ''}}">
+
+      <li class="{{ Request::is('admin/brand*')? 'active' : ''}}">
         <a href="{{ route('admin.brand.index') }}" class="nav-link">
             <i class="fas fa-table text-info"></i>
           <p>
-            Brands @section('menu','Brands')
+            Brands
           </p>
         </a>
       </li>
+      <li class="{{ Request::is('admin/product*')? 'active' : ''}}">
+        <a href="{{ route('admin.product.index') }}" class="nav-link">
+            <i class="fas fa-table text-info"></i>
+          <p>
+            Products
+          </p>
+        </a>
+      </li>
+      <li class="{{ Request::is('admin/review*') ? 'active' : ''}}">
+        <a href="{{ route('admin.review.index') }}" class="nav-link">
+            <i class="fas fa-table text-info"></i>
+          <p>
+            Review
+          </p>
+        </a>
+      </li>
+
       <li class="{{ Request::is('admin/coupon*') ? 'active' : ''}}">
         <a href="{{ route('admin.coupon.index') }}" class="nav-link">
             <i class="fas fa-table text-info"></i>
           <p>
-            Coupons @section('menu','Coupon')
+            Coupons
           </p>
         </a>
       </li>

@@ -38,8 +38,12 @@
                             <td>{{ $key + 1 }}</td>
                             <td><img src="{{ url('storage/product/'.$product->image) }}" alt="{{ $product->name }}" class="img-fluid" style="width: 80px; height:60px;" srcset=""></td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->cat->cat_name }}</td>
-                            <td>{{ $product->brand->name }}</td>
+                            @foreach ($product->cat as $category)
+                            <td>{{ $category->cat_name }}</td>
+                            @endforeach
+                            @foreach ($product->brand as $brand)
+                            <td>{{ $brand->name }}</td>
+                            @endforeach
                             <td>{{ $product->code }}</td>
                             <td>{{ $product->price }}</td>
                             <td>{!! Str::limit($product->description, 10, '...')  !!}</td>

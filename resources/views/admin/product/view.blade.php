@@ -19,14 +19,20 @@
               <!-- form start -->
               <div class="mx-4 py-4">
                 <p>Product Name: {{ $product->name }}</p>
-                <p>Brand Name: {{ $product->brand->name }}</p>
-                <p>Category Name: {{ $product->category->cat_name }}</p>
+                @foreach ($product->brand as $brand)
+                <p>Brand Name: {{ $brand->name }}</p>
+
+                @endforeach
+                @foreach ($product->cat as $cat)
+                <p>Category Name: {{ $cat->cat_name }}</p>
+
+                @endforeach
                 <p>Product Code: {{ $product->code }}</p>
                 <p> Product price: $ {{ $product->price }}</p>
                <label for="">Image: </label> <img src="{{ url('storage/product/'.$product->image) }}" style="widows: 500px; height:350px;" class="img-fluid" alt="{{ $product->name }}">
                 <p>Details: {!! $product->description !!}</p>
               </div>
-              
+
               {{-- <form role="form" id="quickForm" method="POST" action="{{ route('admin.product.update',$product->id) }}"  novalidate="novalidate" enctype="multipart/form-data">
                   @csrf
                   @method('PUT')

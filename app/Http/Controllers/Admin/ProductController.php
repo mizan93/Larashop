@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products=Product::latest()->get();
+        $products=Product::with('cat','brand')->latest()->get();
         return view('admin.product.index',compact('products'));
     }
 
@@ -49,7 +49,7 @@ class ProductController extends Controller
 
         $this->validate($request,[
             'name' => 'required',
-            'code' => 'required|numeric',
+            'code' => 'required',
             'price' => 'required|numeric',
             'category' => 'required',
             'brand' => 'required',
@@ -81,14 +81,16 @@ class ProductController extends Controller
        $product = new Product();
        $product->code = $request->code;
        $product->name = $request->name;
-       $product->cat_id = $request->category;
-       $product->brand_id = $request->brand;
+
+       $product->slug = Str::slug($request->name);
+
        $product->description = $request->description;
        $product->price = $request->price;
        $product->image = $imagename;
        $product->save();
-      
-        
+
+       $product->cat()->attach($request->category);
+       $product->brand()->attach($request->brand);
         Toastr::success('product Successfully Saved :)','Success');
         return redirect()->route('admin.product.index');
     }
@@ -101,7 +103,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        
+
         $product=Product::findOrFail($id);
         return view('admin.product.view',compact('product'));
     }
@@ -112,11 +114,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
         $categories=Category::all();
         $brands=Brand::all();
-        $product=Product::findOrFail($id);
+        // $product=Product::findOrFail($id);
         return view('admin.product.edit',compact('product','categories','brands'));
     }
 
@@ -133,7 +135,7 @@ class ProductController extends Controller
             'name' => 'required',
             'code' => 'required',
             'price' => 'required|numeric',
-           
+
             'description' => 'required',
 
         ]);
@@ -165,12 +167,15 @@ class ProductController extends Controller
        }
        $product->code = $request->code;
        $product->name = $request->name;
-       $product->cat_id = $request->category;
-       $product->brand_id = $request->category;
+
        $product->description = $request->description;
        $product->price = $request->price;
+       $product->slug = Str::slug($request->name);
        $product->image = $imagename;
        $product->save();
+
+       $product->cat()->sync($request->category);
+       $product->brand()->sync($request->brand);
         Toastr::success('product  Updated :)','Success');
         return redirect()->route('admin.product.index');
 
@@ -188,6 +193,8 @@ class ProductController extends Controller
         if (Storage::disk('public')->exists('product/' . $product->image)) {
             Storage::disk('public')->delete('product/' . $product->image);
         }
+        $product->cat()->detach();
+        $product->brand()->detach();
         $product->delete();
         Toastr::success('product Successfully Deleted :)', 'Success');
         return redirect()->back();

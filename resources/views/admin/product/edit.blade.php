@@ -39,9 +39,11 @@
                     <option >Select a category</option>
                     @foreach($categories as $cat)
                     <option
-                   
-                        {{ $cat->id==$product->cat_id? 'selected' : '' }}
-                    
+                    @foreach ($categories as $postcat)
+                        {{ $postcat->id==$cat->id? 'selected' : '' }}
+
+                    @endforeach
+
                      value="{{$cat->id}}">{{$cat->cat_name}}
                     </option>
                     @endforeach
@@ -52,9 +54,12 @@
                   <select name="brand" class="form-control">
                     <option >Select a brand</option>
                     @foreach($brands as $b)
-                    <option 
-                    {{ $b->id==$product->brand_id ? 'selected' : '' }}
-                
+                    <option
+                    @foreach ($brands as $postbrand)
+                    {{ $postbrand->id==$b->id ? 'selected' : '' }}
+
+                    @endforeach
+
                     value="{{$b->id}}">{{$b->name}}
                 </option>
                     @endforeach
@@ -103,7 +108,7 @@
         price:{
             required: true,
         },
-        
+
         description:{
             required: true,
         },
