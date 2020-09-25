@@ -17,6 +17,8 @@ class CreateReviewsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email');
+            $table->string('product_name')->nullable();
+            $table->string('product_code')->nullable();
             $table->text('comment');
             $table->timestamps();
         });

@@ -31,6 +31,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
   Route::resource('coupon', 'CouponController');
   Route::resource('slider', 'SliderController');
   Route::get('review', 'ReviewController@index')->name('review.index');
+  Route::get('review/{id}', 'ReviewController@show')->name('review.show');
 });
 
 // User routes
@@ -42,6 +43,8 @@ Route::get('/','ProductController@getProduct')->name('home');
 Route::get('details/{slug}','ProductController@details')->name('details');
 Route::get('brand/{slug}','ProductController@productByBrand')->name('brand.product');
 Route::get('category/{slug}','ProductController@productByCat')->name('category.product');
+Route::get('/search','ProductController@search')->name('search');
+
 Route::post('/review','ReviewController@storeReview')->name('review.store');
 
 

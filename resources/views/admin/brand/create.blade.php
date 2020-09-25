@@ -23,7 +23,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
-                    <input type="text" name="name" class="form-control"  placeholder="Product name">
+                    <input type="text" name="name" class="form-control"  placeholder="brand name">
                   </div>
                 </div>
                 <!-- /.card-body -->

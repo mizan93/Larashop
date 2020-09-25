@@ -13,14 +13,15 @@ class ReviewController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'email' => 'required|email',
-            'commephpnt' => 'required|'
+            'comment' => 'required'
         ]);
         $reveiw = new Review();
         $reveiw->name = $request->name;
+        $reveiw->product_name = $request->product_name;
+        $reveiw->product_code = $request->product_code;
         $reveiw->email = $request->email;
         $reveiw->comment = $request->comment;
         $reveiw->save();
-        $reveiw->products()->attach($request->product);
 
         Toastr::success('Thank you for your reveiw:)','Success');
         return redirect()->back();

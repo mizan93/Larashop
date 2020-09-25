@@ -38,6 +38,13 @@ return view('home',compact('categories','brands','products','randomProducts','sl
         return view('productBycat',compact('category','products'));
 
     }
+    public function search(Request $request){
+        $searchdata= $request->input('searchdata');
+        $products=Product::where('name','like',"%$searchdata%")->get();
+        return view('search',compact('products','searchdata'));
+
+
+    }
 
 
 }

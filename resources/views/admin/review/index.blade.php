@@ -12,44 +12,50 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 text-left">
-                    {{-- <a href="{{ route('admin.brand.create') }}" class="btn btn-primary">Add New</a> --}}
+                    {{-- <a href="{{ route('admin.review.create') }}" class="btn btn-primary">Add New</a> --}}
                     <div class="card">
                         <div class="card-header" data-background-color="purple">
-                            {{-- <h4 class="title">All brand <span class="badge badge-info display-4">{{ $brands->count()}}</span></h4> --}}
+                            {{-- <h4 class="title">All review <span class="badge badge-info display-4">{{ $reviews->count()}}</span></h4> --}}
                         </div>
                         <div class="card-content table-responsive">
                             <table id="example3" class="table table-striped table-bordered" style="width:100%">
                                 <thead class="text-primary">
                                 <th>ID</th>
+                                <th>Product name</th>
+                                <th>Product code</th>
                                 <th>Name</th>
-                                <th>Slug</th>
+                                <th>Email</th>
+                                <th>Comment</th>
 
                                 <th>Created At</th>
                                 <th>Action</th>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach($brands as $key=>$brand)
+                                    @foreach($reviews as $key=>$review)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $brand->name }}</td>
-                                            <td>{{ $brand->slug }}</td>
-                                            <td>{{ $brand->created_at->toFormattedDateString() }}</td>
+                                            <td>{{ $review->product_name }}</td>
+                                            <td>{{ $review->product_code }}</td>
+                                            <td>{{ $review->name }}</td>
+                                            <td>{{ $review->email }}</td>
+                                            <td>{{ Str::limit($review->comment, 30, '...')  }}</td>
+                                            <td>{{ $review->created_at->toFormattedDateString() }}</td>
                                             <td>
-                                                <a href="{{ route('admin.brand.edit',$brand->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                                <a href="{{ route('admin.review.show',$review->id) }}" class="btn btn-info btn-sm">view</a>
 
-                                                <form id="delete-form-{{ $brand->id }}" action="{{ route('admin.brand.destroy',$brand->id) }}" style="display: none;" method="POST">
+                                                {{-- <form id="delete-form-{{ $review->id }}" action="{{ route('admin.review.destroy',$review->id) }}" style="display: none;" method="POST"> --}}
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
-                                                <button type="button" class="btn btn-danger btn-sm" onclick="if(confirm('Are you sure delete this?')){
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="if(confirm('Are you sure to delete this?')){
                                                     event.preventDefault();
-                                                    document.getElementById('delete-form-{{ $brand->id }}').submit();
+                                                    document.getElementById('delete-form-{{ $review->id }}').submit();
                                                 }else {
                                                     event.preventDefault();
                                                         }"><i class="material-icons"></i>Delete</button>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
