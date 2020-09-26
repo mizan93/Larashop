@@ -18,6 +18,14 @@ class ProductController extends Controller
         $randomProducts= Product::latest()->inRandomOrder()->get();
 return view('home',compact('categories','brands','products','randomProducts','sliders'));
     }
+    public function Products(){
+        $categories= Category::latest()->get();
+        $brands= Brand::latest()->get();
+        $sliders= Slider::all();
+        $products= Product::latest()->get();
+        $randomProducts= Product::latest()->inRandomOrder()->get();
+return view('products',compact('categories','brands','products','randomProducts','sliders'));
+    }
     public function details($slug){
         $categories= Category::latest()->get();
         $brands= Brand::latest()->get();
@@ -34,17 +42,18 @@ return view('home',compact('categories','brands','products','randomProducts','sl
     public function productByCat($slug){
         $category=Category::where('slug',$slug)->first();
         $products=$category->products()->get();
-
         return view('productBycat',compact('category','products'));
-
     }
     public function search(Request $request){
         $searchdata= $request->input('searchdata');
         $products=Product::where('name','like',"%$searchdata%")->get();
         return view('search',compact('products','searchdata'));
-
-
     }
-
+    public function priceRange(Request $request){
+        $minval= $request->input('minval');
+        $maxval= $request->input('maxval');
+        $products=Product::whereBetween('price',[$minval,$maxval])->get();
+       return view('pricerange',compact('products','minval','maxval'));
+    }
 
 }

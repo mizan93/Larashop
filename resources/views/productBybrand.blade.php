@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'ProductByBrand')
 @section('content')
 
 
@@ -8,7 +8,7 @@
 			<div class="row">
 
                 <div class="features_items"><!--features_items-->
-                    <h2 class="title text-center">{{ $brand->name }}-({{ $brand->count() }})</h2>
+                    <h2 class="title text-center">{{ $brand->name }}-({{ $brand->products()->count() }})</h2>
                     @if ($products->count()>0)
                     @foreach ($products as $product)
                     <div class="col-sm-4">
@@ -29,7 +29,7 @@
                             <div class="choose">
                                 <ul class="nav nav-pills nav-justified">
                                     <li><a href="{{ $product->id }}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Add to wishlis</a></li>
-                                    <li><a href="{{ $product->id }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a></li>
+                                    <li><a href="{{ route('add.cart',$product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a></li>
                                 </ul>
                             </div>
                         </div>

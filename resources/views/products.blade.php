@@ -2,51 +2,13 @@
 @section('title','home')
 
 @section('content')
-	<section id="slider"><!--slider-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-                            @foreach ($sliders as $key=>$slider)
-							<li data-target="#slider-carousel" data-slide-to="{{ $key }}" class="active"></li>
 
-                            @endforeach
-
-						</ol>
-						<div class="carousel-inner">
-                            @foreach ($sliders as $slider)
-                            <div class="item active">
-								<div class="col-sm-6">
-									<h1>{{ $slider->title }}</h1>
-                                <h2>{{ $slider->sub_title }}</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
-								</div>
-							</div>
-                            @endforeach
-						</div>
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</section><!--/slider-->
 
 	<section>
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3">
+					@include('layouts.sidebar')
 				</div>
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
@@ -120,5 +82,4 @@
 		</div>
 	</section>
 
-    
 @endsection

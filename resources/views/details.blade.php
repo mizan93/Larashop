@@ -1,7 +1,8 @@
 @extends('layouts.app')
+@section('title', 'details')
 
 @section('content')
-	
+
 	<section>
 		<div class="container">
 			<div class="row">
@@ -27,7 +28,7 @@
 									<span> ${{ $product->price }}</span>
 									<label>Quantity:</label>
 									<input type="text" value="{{ $product->quantity }}">
-									<a  href="{{ $product->id }}" class="btn btn-fefault cart">
+									<a  href="{{ route('add.cart',$product->id) }}" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Add to cart
 									</a>	<a  href="{{ $product->id }}" class="btn btn-fefault cart">
@@ -61,13 +62,13 @@
 
                                     <form method="POST" action="{{ route('review.store') }}" id="quickForm">
                                         @csrf
-										
+
 										    <input type="text" name="name" placeholder="Your Name">
 											<input type="email" name="email"  placeholder="Your Email Address">
 											<input type="text" name="product_name" placeholder="Product Name">
 											<input type="text" name="product_code" placeholder="Product Code">
-											
-										
+
+
 										<textarea name="comment" placeholder="comment"></textarea>
 										<button type="submit" class="btn btn-default pull-right">
 											Submit
@@ -79,7 +80,7 @@
 						</div>
 					</div>
 
-				
+
 
 				</div>
 			</div>
@@ -98,7 +99,7 @@
         name:{
             required: true,
         },
-        
+
         email:{
             required: true,
             email: true
@@ -116,7 +117,7 @@
       },
       messages:{
           name: "Please specify your name",
-          
+
           email: {
       required: "We need your email address to contact you",
       email: "Please specify your email"

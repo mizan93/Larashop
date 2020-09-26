@@ -42,7 +42,7 @@ class RegisterController extends Controller
         if (Auth::check() && Auth::user()->isRole()=="admin") {
             $this->redirectTo = route('admin.dashboard');
         }else {
-            $this->redirectTo = route('user.dashboard');
+            $this->redirectTo = route('login');
         }
         $this->middleware('guest');
     }

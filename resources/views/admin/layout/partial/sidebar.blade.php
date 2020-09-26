@@ -87,6 +87,14 @@
           </p>
         </a>
       </li>
+      <li class="{{ Request::is('admin/user*') ? 'active' : ''}}">
+        <a href="{{ route('admin.user.index') }}" class="nav-link">
+            <i class="fas fa-table text-info"></i>
+          <p>
+            Users
+          </p>
+        </a>
+      </li>
       @endif
     </ul>
   </nav>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title>Larashop-@yield('title')</title>
     <link href="{{ asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ asset('frontend/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{ asset('frontend/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -99,8 +99,27 @@
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                @guest
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="{{ route('register') }}"><i class="fa fa-lock"></i> Register</a></li>
+                                @else
+                                @if ( Auth::user()->isRole()=='user' ||  Auth::user()->isRole()=='admin')
+								<li>
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                 {{ __('Logout') }}
+                                 <i class="fas fa-sign-out-alt"></i>
+                             </a>
+
+                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                 @csrf
+                             </form>
+                            </li>
+                                @endif
+
+                                @endguest
 							</ul>
 						</div>
 					</div>
@@ -123,7 +142,8 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="{{ route('home') }}" class="active">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+								<li><a href="{{ route('products') }}" class="active">Products</a></li>
+								{{-- <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>
 										<li><a href="product-details.html">Product Details</a></li>
@@ -131,7 +151,7 @@
 										<li><a href="cart.html">Cart</a></li>
 										<li><a href="login.html">Login</a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
@@ -148,7 +168,7 @@
 						<form action="{{ route('search') }}">
 						@csrf
 							<input type="text" name="searchdata" placeholder="Search"/>
-				
+
 						</form>
 						</div>
 					</div>
@@ -324,11 +344,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 
-	{{-- <script src="{{ asset('fronend/js/bootstrap.min.js')}}"></script> --}}
-	<script src="{{ asset('fronend/js/jquery.scrollUp.min.js')}}"></script>
-	<script src="{{ asset('fronend/js/price-range.js')}}"></script>
-    <script src="{{ asset('fronend/js/jquery.prettyPhoto.js')}}"></script>
-    <script src="{{ asset('fronend/js/main.js')}}"></script>
+	{{-- <script src="{{ asset('frontend/js/bootstrap.min.js')}}"></script> --}}
+	<script src="{{ asset('frontend/js/jquery.scrollUp.min.js')}}"></script>
+	<script src="{{ asset('frontend/js/price-range.js')}}"></script>
+    <script src="{{ asset('frontend/js/jquery.prettyPhoto.js')}}"></script>
+    <script src="{{ asset('frontend/js/main.js')}}"></script>
 
     <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 

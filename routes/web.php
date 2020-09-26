@@ -32,6 +32,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
   Route::resource('slider', 'SliderController');
   Route::get('review', 'ReviewController@index')->name('review.index');
   Route::get('review/{id}', 'ReviewController@show')->name('review.show');
+  Route::get('users', 'UserController@index')->name('user.index');
+  Route::delete('user/{id}', 'UserController@destroy')->name('user.destroy');
+
 });
 
 // User routes
@@ -40,11 +43,17 @@ Route::group(['as'=>'user.','prefix'=>'user','namespace'=>'User','middleware' =>
 });
 
 Route::get('/','ProductController@getProduct')->name('home');
-Route::get('details/{slug}','ProductController@details')->name('details');
+Route::get('/products','ProductController@Products')->name('products');
+Route::get('product/details/{slug}','ProductController@details')->name('details');
 Route::get('brand/{slug}','ProductController@productByBrand')->name('brand.product');
 Route::get('category/{slug}','ProductController@productByCat')->name('category.product');
 Route::get('/search','ProductController@search')->name('search');
-
+Route::get('/price/range','ProductController@priceRange')->name('price.range');
 Route::post('/review','ReviewController@storeReview')->name('review.store');
 
+// Cart routes
+Route::get('cart','CartController@cart')->name('cart');
+Route::get('add-cart/{product}','CartController@addToCart')->name('add.cart')->middleware(['auth'=>'user']);
+Route::get('update/{id}','CartController@update')->name('update.cart');
+Route::get('remove/{id}','CartController@remove')->name('remove.cart');
 
