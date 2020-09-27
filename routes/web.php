@@ -52,8 +52,8 @@ Route::get('/price/range','ProductController@priceRange')->name('price.range');
 Route::post('/review','ReviewController@storeReview')->name('review.store');
 
 // Cart routes
-Route::get('cart','CartController@cart')->name('cart');
-Route::get('add-cart/{product}','CartController@addToCart')->name('add.cart')->middleware(['auth'=>'user']);
-Route::get('update/{id}','CartController@update')->name('update.cart');
-Route::get('remove/{id}','CartController@remove')->name('remove.cart');
+Route::get('cart','CartController@cart')->name('cart')->middleware('auth');
+Route::get('add-cart/{product}','CartController@addToCart')->name('add.cart')->middleware('auth');
+Route::get('update/{id}','CartController@update')->name('update.cart')->middleware('auth');
+Route::get('remove/{id}','CartController@remove')->name('cart.remove')->middleware('auth');
 

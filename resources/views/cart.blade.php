@@ -15,48 +15,47 @@
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
-							<td class="image">Image</td>
-							<td class="description">Name</td>
-							<td class="price">Price</td>
-							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
-                            <td></td>
+							<td>Name</td>
+							<td>Price</td>
+							<td>Quantity</td>
+							<td>Total</td>
+                            <td>Action</td>
 						</tr>
 					</thead>
 					<tbody>
-                        @php
-                            $total=0;
-                        @endphp
-                        @if (session('cart'))
-                        @foreach (session('cart') as $id=>$product)
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="{{ $product['image'] }}" alt="" class="img-fluid" width="150"></a>
-							</td>
+                        @foreach ($products as $product)
+                        <tr>
 							<td class="cart_description">
 								<p><a href="">{{ $product->name }} </a></p>
 								<p>Code: {{ $product->code }}</p>
 							</td>
-
 							<td class="cart_price">
 								<p>${{ $product->price }}</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
+									<form action="{{ route('update.cart',$product->id) }}" >
+                                       
+                                    <input class="cart_quantity_input" type="number" name="quantity" value="{{ $product->quantity }}" autocomplete="off" size="2">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </form>
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
+								<p class="cart_total_price">
+                                    {{-- $@php
+                                     $sum=$product->price * $product->quantity ;
+                                     echo $sum;
+                                @endphp --}}
+                                {{ $product->price }}
+                                {{  Cart::session(auth()->id())->get($product->id)->getPriceSum() }}
+                                </p>
 							</td>
 							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+								<a class="cart_quantity_delete" href="{{ route('cart.remove',$product->id) }}"><i class="fa fa-times"></i></a>
 							</td>
                         </tr>
                         @endforeach
-                        @endif
 					</tbody>
 				</table>
 			</div>
@@ -98,7 +97,6 @@
 									<option>Canada</option>
 									<option>Dubai</option>
 								</select>
-
 							</li>
 							<li class="single_field">
 								<label>Region / State:</label>
@@ -112,7 +110,6 @@
 									<option>Canada</option>
 									<option>Dubai</option>
 								</select>
-
 							</li>
 							<li class="single_field zip-field">
 								<label>Zip Code:</label>
