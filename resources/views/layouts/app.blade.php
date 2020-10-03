@@ -97,9 +97,9 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="#"><i class="fa fa-star"></i> Wishlist <span class="badge badge-secondary">2</span></a></li>
+								<li><a href="{{ route('checkout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                                <li><a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i> Cart <span class="badge badge-secondary">{{ Cart::session(auth()->id())->getContent()->count() }}</span></a></li>
                                 @guest
 								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
 								<li><a href="{{ route('register') }}"><i class="fa fa-lock"></i> Register</a></li>

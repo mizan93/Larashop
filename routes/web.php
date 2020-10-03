@@ -57,3 +57,4 @@ Route::get('add-cart/{product}','CartController@addToCart')->name('add.cart')->m
 Route::get('update/{id}','CartController@update')->name('update.cart')->middleware('auth');
 Route::get('remove/{id}','CartController@remove')->name('cart.remove')->middleware('auth');
 
+Route::get('checkout','CartController@checkout')->name('checkout')->middleware('auth');

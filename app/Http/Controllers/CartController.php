@@ -16,36 +16,42 @@ class CartController extends Controller
     public function addToCart(Product $product){
 
         \Cart::session(auth()->id())->add(array(
-    'id' => $product->id, 
+    'id' => $product->id,
     'name' => $product->name,
-    'price' => $product->price,
     'code' => $product->code,
-    'image' => $product->image,
+    'price' => $product->price,
     'quantity' => 1,
+    'image' => $product->image,
     'attributes' => array(),
     'associatedModel' => $product
 ));
 
-
 return redirect()->route('cart');
     }
+
     public function update($id){
         \Cart::session(auth()->id())->update($id,[
             'quantity' =>array(
                 'relative' => false,
                 'value' => request('quantity')
-            ), 
-            
+            ),
+
         ]);
         return redirect()->back();
- 
+
     }
+
     public function remove($id){
         \Cart::session(auth()->id())->remove($id);
         Toastr::success('product deleted :)', 'Success');
         return redirect()->back();
 
 
+    }
+    public function checkout(){
+        $products=\Cart::session(auth()->id())->getContent();
+
+        return view('checkout',compact('products'));
     }
 
 }
