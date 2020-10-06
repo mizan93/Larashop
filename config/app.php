@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
 
         /*
@@ -232,6 +233,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
 
 
     ],

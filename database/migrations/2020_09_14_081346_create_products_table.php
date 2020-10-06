@@ -19,10 +19,10 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->string('code');
             $table->string('price');
-            $table->integer('quantity')->deafault(1);
+            $table->integer('quantity')->default('1');
             $table->string('image')->default('deafault.png');
             $table->text('description');
-           
+
             $table->timestamps();
         });
     }

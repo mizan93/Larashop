@@ -37,6 +37,15 @@
           </p>
         </a>
       </li>
+      <li class="{{ Request::is('admin/order') ? 'active' : ''}}">
+        <a href="{{ route('admin.order.index') }}" class="nav-link">
+            <i class="fas fa-tachometer-alt text-blue"></i>
+          <p>
+            Orders
+            {{-- <span class="right badge badge-danger">New</span> --}}
+          </p>
+        </a>
+      </li>
       <li class="{{ Request::is('admin/slider*') ? 'active' : ''}}">
         <a href="{{ route('admin.slider.index') }}" class="nav-link">
             <i class="fas fa-table text-info"></i>

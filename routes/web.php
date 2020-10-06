@@ -30,6 +30,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
   Route::resource('brand', 'BrandController');
   Route::resource('coupon', 'CouponController');
   Route::resource('slider', 'SliderController');
+  Route::resource('order', 'OrderController');
   Route::get('review', 'ReviewController@index')->name('review.index');
   Route::get('review/{id}', 'ReviewController@show')->name('review.show');
   Route::get('users', 'UserController@index')->name('user.index');
@@ -38,9 +39,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
 });
 
 // User routes
-Route::group(['as'=>'user.','prefix'=>'user','namespace'=>'User','middleware' => ['auth'=>'user']], function () {
-  Route::get('/dashboard','DashboardController@index')->name('dashboard');
-});
+// Route::group(['as'=>'user.','prefix'=>'user','namespace'=>'User','middleware' => ['auth'=>'user']], function () {
+//   Route::get('/dashboard','DashboardController@index')->name('dashboard');
+// });
 
 Route::get('/','ProductController@getProduct')->name('home');
 Route::get('/products','ProductController@Products')->name('products');
@@ -52,9 +53,14 @@ Route::get('/price/range','ProductController@priceRange')->name('price.range');
 Route::post('/review','ReviewController@storeReview')->name('review.store');
 
 // Cart routes
-Route::get('cart','CartController@cart')->name('cart')->middleware('auth');
-Route::get('add-cart/{product}','CartController@addToCart')->name('add.cart')->middleware('auth');
-Route::get('update/{id}','CartController@update')->name('update.cart')->middleware('auth');
-Route::get('remove/{id}','CartController@remove')->name('cart.remove')->middleware('auth');
+Route::get('cart','CartController@cart')->name('cart')->middleware(['auth'=>'user']);
+Route::get('add-cart/{product}','CartController@addToCart')->name('add.cart')->middleware(['auth'=>'user']);
+Route::get('update/{id}','CartController@update')->name('update.cart')->middleware(['auth'=>'user']);
+Route::get('remove/{id}','CartController@remove')->name('cart.remove')->middleware(['auth'=>'user']);
+Route::get('checkout','CartController@checkout')->name('checkout')->middleware(['auth'=>'user']);
 
-Route::get('checkout','CartController@checkout')->name('checkout')->middleware('auth');
+Route::resource('order', 'OrderController')->middleware(['auth'=>'user']);
+
+Route::get('paypal/checkout/{order}','PaypalController@getExpressCheckout')->name('paypal.checkout');
+Route::get('paypal/checkout-success/{order}','PaypalController@getExpressCheckoutSuccess')->name('paypal.success');
+Route::get('paypal/checkout-cancel','PaypalController@cancelPage')->name('paypal.cancel');

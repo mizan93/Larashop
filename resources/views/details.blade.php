@@ -92,7 +92,6 @@
 
 <script>
     $(document).ready(function() {
-
   $("#quickForm").validate({
 
       rules:{
