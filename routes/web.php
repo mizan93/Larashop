@@ -3,6 +3,7 @@
 use App\Brand;
 use App\Category;
 use App\Contact;
+use App\Inbox;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,10 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
   Route::delete('user/{id}', 'UserController@destroy')->name('user.destroy');
   Route::get('contact', 'ContactController@edit')->name('contact.edit');
   Route::put('contact/{id}', 'ContactController@update')->name('contact.update');
+
+  Route::get('inbox', 'ContactController@index')->name('inbox.index');
+  Route::get('inbox/view/{id}', 'ContactController@show')->name('inbox.show');
+  Route::delete('inbox/destroy/{id}', 'ContactController@destroy')->name('inbox.destroy');
 
 });
 
@@ -90,6 +95,10 @@ view()->composer('layouts.sidebar', function ($view) {
 view()->composer('layouts.sidebar', function ($view) {
     $brands=Brand::latest()->get();
      $view->with('brands',$brands);
+});
+view()->composer('admin.layout.app', function ($view) {
+    $inbox=Inbox::where('status','unseen')->latest()->get();
+     $view->with('inbox',$inbox);
 });
 
 //Not found

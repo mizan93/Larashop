@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Contact;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Inbox;
 use Brian2694\Toastr\Facades\Toastr;
 
 class ContactController extends Controller
@@ -28,7 +29,25 @@ class ContactController extends Controller
         Toastr::success('Company Info has been updated :)', 'Success');
 
          return redirect()->back();
-
     }
-    
+    public function index(){
+
+        $inbox=Inbox::orderby('created_at','desc')->get();
+        $seen=Inbox::where('status','seen')->count();
+        $unseen=Inbox::where('status','unseen')->count();
+        return view('admin.inbox.index',compact('inbox','seen','unseen'));
+    }
+    public function show($id){
+        $inbox=Inbox::find($id);
+        $inbox->status='seen';
+        $inbox->save();
+        return view('admin.inbox.show',compact('inbox'));
+    }
+    public function destroy($id){
+        $inbox=Inbox::find($id);
+        $inbox->delete();
+        Toastr::success('Message has been Deleted :)', 'Success');
+         return redirect()->back();
+    }
+
 }

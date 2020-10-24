@@ -17,7 +17,8 @@
                 <div class="contact-form">
                     <h2 class="title text-center">Get In Touch</h2>
                     <div class="status alert alert-success" style="display: none"></div>
-                    <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+                    <form id="main-contact-form" class="contact-form row" name="contact-form" action="{{ route('contact.store') }}" method="post">
+                        @csrf
                         <div class="form-group col-md-6">
                             <input type="text" name="name" class="form-control" required="required" placeholder="Name">
                         </div>

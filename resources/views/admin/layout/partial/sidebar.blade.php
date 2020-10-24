@@ -5,7 +5,7 @@
 @if (Request::is('admin*'))
 
 
-           
+
       <li class="{{ Request::is('admin/dashboard') ? 'active' : ''}}">
         <a href="{{ route('admin.dashboard') }}" class="nav-link">
             <i class="fas fa-tachometer-alt text-blue"></i>
@@ -65,6 +65,14 @@
           </p>
         </a>
       </li>
+      <li class="{{ Request::is('admin/inbox*') ? 'active' : ''}}">
+        <a href="{{ route('admin.inbox.index') }}" class="nav-link">
+            <i class="fas fa-table text-info"></i>
+          <p>
+            Inbox
+          </p>
+        </a>
+      </li>
 
       <li class="{{ Request::is('admin/coupon*') ? 'active' : ''}}">
         <a href="{{ route('admin.coupon.index') }}" class="nav-link">
@@ -99,6 +107,6 @@
         </a>
       </li>
       @endif
-      
+
     </ul>
   </nav>
