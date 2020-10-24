@@ -18,20 +18,96 @@
               <!-- /.card-header -->
               <!-- form start -->
               <div class="mx-4 py-4">
-                <p>order Name: {{ $order->name }}</p>
-                @foreach ($order->brand as $brand)
-                <p>Brand Name: {{ $brand->name }}</p>
+                <h4>Customer details:</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row">{{ $order->name }}</td>
+                            <td> {{ $order->user->email  }}</td>
+                            <td>{{ $order->phone }}</td>
+                            <td>{{ $order->address }}, {{ $order->city }}, {{ $order->zipcode }}.</td>
+                            <td>{{ $order->notes }}</td>
+                        </tr>
 
-                @endforeach
-                @foreach ($order->cat as $cat)
-                <p>Category Name: {{ $cat->cat_name }}</p>
+                    </tbody>
+                </table>
+                <h4>Product details:</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>code</th>
+                            <th>price</th>
+                            <th>qty</th>
+                            <th>Total</th>
+                            <th>Order date</th>
 
-                @endforeach
-                <p>order Code: {{ $order->code }}</p>
-                <p> order price: $ {{ $order->price }}</p>
-               <label for="">Image: </label> <img src="{{ url('storage/order/'.$order->image) }}" style="widows: 500px; height:350px;" class="img-fluid" alt="{{ $order->name }}">
-                <p>Details: {!! $order->description !!}</p>
-              </div>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach ($order->items as $item)
+                        <tr>
+                            <td scope="row">{{ $item->name }}</td>
+                            <td>{{ $item->code }}</td>
+                            <td>{{ $item->pivot->price2 }}</td>
+                            <td>{{ $item->pivot->quantity2 }}</td>
+                            <td>@php
+ echo $item->pivot->price2 * $item->pivot->quantity2
+                            @endphp</td>
+
+                            <td>{{ $item->created_at->toFormattedDateString() }}</td>
+
+                        </tr>
+                        @endforeach
+
+
+                    </tbody>
+                </table>
+                <h5>Grand Total: {{ $order->grand_total }}</h5>
+                <h4>Order details:</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order Id</th>
+                            <th>Status</th>
+                            <th>Payment</th>
+                            <th>Payment method</th>
+                            <th>Order date</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td scope="row">{{ $order->id }}</td>
+                            <td>{{ $order->status }}</td>
+                            <td>@if ($order->is_paid==false)
+                                <p>unpaid</p>
+                                @else
+                               <p>paid</p>
+                            @endif</td>
+                            <td>
+                                  {{ $order->payment_method }}</td>
+
+                            <td>{{ $order->created_at->toFormattedDateString() }}</td>
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
 
 
             </div>

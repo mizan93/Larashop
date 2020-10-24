@@ -43,19 +43,21 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i> {{ $companyinfo->phone }}</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i>{{ $companyinfo->email }}</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-6">
+                        
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="{{ $companyinfo->fb_link }}"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="{{ $companyinfo->tw_link }}"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="{{ $companyinfo->insta_link }}"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="{{ $companyinfo->gplus_link }}"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="{{ $companyinfo->youtube_link }}"><i class="fa fa-youtube"></i></a></li>
+
 							</ul>
 						</div>
 					</div>
@@ -97,10 +99,10 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-								<li><a href="#"><i class="fa fa-star"></i> Wishlist <span class="badge badge-secondary">2</span></a></li>
+								<li ><a href="{{ route('account') }}"><i class="fa fa-user"></i> Profile</a></li>
+								{{-- <li><a href="#"><i class="fa fa-star"></i> Wishlist <span class="badge badge-secondary">2</span></a></li> --}}
 								<li><a href="{{ route('checkout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i> Cart <span class="badge badge-secondary">
+                                <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i> Cart <span class="badge badge-secondary">
                                     @auth
                                     {{ Cart::session(auth()->id())->getContent()->count() }}
                                     @else
@@ -109,7 +111,6 @@
                                 </span></a></li>
                                 @guest
 								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
-								<li><a href="{{ route('register') }}"><i class="fa fa-lock"></i> Register</a></li>
                                 @else
                                 @if ( Auth::user()->isRole()=='user')
 								<li>
@@ -148,25 +149,14 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="{{ route('home') }}" class="active">Home</a></li>
-								<li><a href="{{ route('products') }}" class="active">Products</a></li>
-								{{-- <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="cart.html">Cart</a></li>
-										<li><a href="login.html">Login</a></li>
-                                    </ul>
-                                </li> --}}
-								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li>
-								<li><a href="404.html">404</a></li>
-								<li><a href="contact-us.html">Contact</a></li>
+								<li ><a href="{{ route('home') }}" class="{{ request()->routeIs('home')? 'active' : ''
+                                }}">Home</a></li>
+								<li><a href="{{ route('products') }}" class="{{ request()->routeIs('products')? 'active' : ''
+                                }}">Products</a></li>
+								<li><a href="{{ route('blog') }}" class="{{ request()->routeIs('blog')? 'active' : ''
+                                }}">Blog</a></li>
+								<li ><a href="{{ route('contact.index') }}" class="{{ request()->routeIs('contact.index')? 'active' : ''
+                                }}">Contact</a></li>
 							</ul>
 						</div>
 					</div>
@@ -187,7 +177,7 @@
     @yield('content')
 
 	<footer id="footer"><!--Footer-->
-		
+
 
 		<div class="footer-widget">
 			<div class="container">
@@ -258,8 +248,10 @@
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-					<p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
+					<p class="pull-left">Copyright © 2020- @php
+                        echo date('Y');
+                    @endphp LARASHOP inc. All rights reserved.</p>
+					<p class="pull-right">Developed by <span><a target="_blank" href="https://github.com/mizan93?tab=repositories">M R Mizan</a></span></p>
 				</div>
 			</div>
 		</div>

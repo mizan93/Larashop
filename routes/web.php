@@ -1,5 +1,8 @@
 <?php
 
+use App\Brand;
+use App\Category;
+use App\Contact;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +30,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
   Route::get('/dashboard','DashboardController@index')->name('dashboard');
   Route::resource('product', 'ProductController');
   Route::resource('category', 'CategoryController');
+  Route::resource('blog', 'BlogController');
   Route::resource('brand', 'BrandController');
   Route::resource('coupon', 'CouponController');
   Route::resource('slider', 'SliderController');
@@ -35,6 +39,8 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
   Route::get('review/{id}', 'ReviewController@show')->name('review.show');
   Route::get('users', 'UserController@index')->name('user.index');
   Route::delete('user/{id}', 'UserController@destroy')->name('user.destroy');
+  Route::get('contact', 'ContactController@edit')->name('contact.edit');
+  Route::put('contact/{id}', 'ContactController@update')->name('contact.update');
 
 });
 
@@ -58,9 +64,33 @@ Route::get('add-cart/{product}','CartController@addToCart')->name('add.cart')->m
 Route::get('update/{id}','CartController@update')->name('update.cart')->middleware(['auth'=>'user']);
 Route::get('remove/{id}','CartController@remove')->name('cart.remove')->middleware(['auth'=>'user']);
 Route::get('checkout','CartController@checkout')->name('checkout')->middleware(['auth'=>'user']);
+Route::get('profile','CartController@profile')->name('account')->middleware(['auth'=>'user']);
+Route::post('profile/update','CartController@updateProfile')->name('account.update')->middleware(['auth'=>'user']);
+Route::post('profile/password/update','CartController@updatePassword')->name('account.password.update')->middleware(['auth'=>'user']);
 
 Route::resource('order', 'OrderController')->middleware(['auth'=>'user']);
 
 Route::get('paypal/checkout/{order}','PaypalController@getExpressCheckout')->name('paypal.checkout');
 Route::get('paypal/checkout-success/{order}','PaypalController@getExpressCheckoutSuccess')->name('paypal.success');
 Route::get('paypal/checkout-cancel','PaypalController@cancelPage')->name('paypal.cancel');
+
+
+Route::get('contact','ContactController@index')->name('contact.index');
+Route::post('contact','ContactController@store')->name('contact.store');
+Route::get('blog','ContactController@getBlog')->name('blog');
+Route::get('blog/{id}','ContactController@getSingleBlog')->name('blog.single');
+view()->composer('layouts.app', function ($view) {
+    $companyinfo=Contact::where('id','1')->first();
+     $view->with('companyinfo',$companyinfo,);
+});
+view()->composer('layouts.sidebar', function ($view) {
+    $categories=Category::latest()->get();
+     $view->with('categories',$categories);
+});
+view()->composer('layouts.sidebar', function ($view) {
+    $brands=Brand::latest()->get();
+     $view->with('brands',$brands);
+});
+
+//Not found
+Route::get('*','ProductController@notfound')->name('notfound');

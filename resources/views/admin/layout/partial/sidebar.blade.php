@@ -5,29 +5,7 @@
 @if (Request::is('admin*'))
 
 
-           {{-- <li class="nav-item has-treeview menu-open">
-        <a href="#" class="nav-link active">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
-          <p>
-            Starter Pages
-            <i class="right fas fa-angle-left"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="#" class="nav-link active">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Active Page</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Inactive Page</p>
-            </a>
-          </li>
-        </ul>
-      </li> --}}
+           
       <li class="{{ Request::is('admin/dashboard') ? 'active' : ''}}">
         <a href="{{ route('admin.dashboard') }}" class="nav-link">
             <i class="fas fa-tachometer-alt text-blue"></i>
@@ -104,6 +82,23 @@
           </p>
         </a>
       </li>
+      <li class="{{ Request::is('admin/blog*') ? 'active' : ''}}">
+        <a href="{{ route('admin.blog.index') }}" class="nav-link">
+            <i class="fas fa-table text-info"></i>
+          <p>
+          Blogs
+          </p>
+        </a>
+      </li>
+      <li class="{{ Request::is('admin/contact*') ? 'active' : ''}}">
+        <a href="{{ route('admin.contact.edit') }}" class="nav-link">
+            <i class="fas fa-table text-info"></i>
+          <p>
+            Company info.
+          </p>
+        </a>
+      </li>
       @endif
+      
     </ul>
   </nav>

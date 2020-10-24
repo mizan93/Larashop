@@ -71,10 +71,8 @@ class OrderController extends Controller
 
         foreach ($cartItems as $key => $item) {
             $order->items()->attach($item->id,[
-                'name'=>$item->name,
-                'code'=>$item->code,
-                'price'=>$item->price,
-                'quantity'=>$item->quantity
+                'price2'=>$item->price,
+                'quantity2'=>$item->quantity
             ]);
         }
         // payment method

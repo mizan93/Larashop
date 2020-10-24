@@ -23,7 +23,7 @@
     </div><!--/brands_products-->
     <div class="price-range"><!--price-range-->
         <h2>Price Range</h2>
-        {{-- <div class="well text-center">
+         {{-- <div class="well text-center">
         <div class="form-group">
           <label for=""></label>
           <select multiple class="form-control" name="" id="pricerange">

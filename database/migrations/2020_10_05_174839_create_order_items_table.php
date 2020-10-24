@@ -25,8 +25,8 @@ class CreateOrderItemsTable extends Migration
             ->references('id')->on('orders')
             ->onDelete('cascade');
 
-            $table->float('price');
-            $table->integer('quantity');
+            $table->float('price2');
+            $table->integer('quantity2');
             $table->timestamps();
         });
     }

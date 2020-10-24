@@ -63,7 +63,7 @@
                                     </button>
                                     <div class="dropdown-menu"aria-labelledby="dropdownMenuButton">
                                       <a class="dropdown-item" href="{{ route('admin.order.show',$order->id) }}">view</a>
-                                      {{-- <a class="dropdown-item" href="{{ route('admin.order.edit',$order->id) }}">edit</a>
+                                      <a class="dropdown-item" href="{{ route('admin.order.edit',$order->id) }}">edit</a>
                                      <form id="delete-form-{{ $order->id }}"  action="{{ route('admin.order.destroy',$order->id) }}" style="display: none;" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -73,7 +73,7 @@
                                     document.getElementById('delete-form-{{ $order->id }}').submit();
                                 }else {
                                     event.preventDefault();
-                                        }">delete</a> --}}
+                                        }">delete</a>
                                     </div>
                                   </div>
 

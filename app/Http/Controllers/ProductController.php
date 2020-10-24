@@ -11,27 +11,24 @@ use App\Slider;
 class ProductController extends Controller
 {
     public function getProduct(){
-        $categories= Category::latest()->get();
-        $brands= Brand::latest()->get();
+       
         $sliders= Slider::all();
         $products= Product::latest()->get();
         $randomProducts= Product::latest()->inRandomOrder()->get();
-return view('home',compact('categories','brands','products','randomProducts','sliders'));
+return view('home',compact('products','randomProducts','sliders'));
     }
     public function Products(){
-        $categories= Category::latest()->get();
-        $brands= Brand::latest()->get();
+        
         $sliders= Slider::all();
         $products= Product::latest()->get();
         $randomProducts= Product::latest()->inRandomOrder()->get();
-return view('products',compact('categories','brands','products','randomProducts','sliders'));
+return view('products',compact('products','randomProducts','sliders'));
     }
     public function details($slug){
-        $categories= Category::latest()->get();
-        $brands= Brand::latest()->get();
+        
         $product=Product::where('slug',$slug)->first();
         $randomProducts= Product::latest()->inRandomOrder()->get();
-        return view('details',compact('product','categories','brands','randomProducts'));
+        return view('details',compact('product','randomProducts'));
     }
     public function productByBrand($slug){
          $brand=Brand::where('slug',$slug)->first();
@@ -56,4 +53,7 @@ return view('products',compact('categories','brands','products','randomProducts'
        return view('pricerange',compact('products','minval','maxval'));
     }
 
+    public function notfound(){
+        return view('notfound');
+    }
 }

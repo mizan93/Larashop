@@ -16,8 +16,8 @@ Your have to pay:
         <tr>
             <td scope="row">{{ $item->name }}</td>
 
-            <td>{{ $item->quantity }}</td>
-            <td>{{ $item->price }}</td>
+            <td>{{ $item->pivot->quantity2 }}</td>
+            <td>{{ $item->pivot->price2 }}</td>
         </tr>
         @endforeach
     </tbody>

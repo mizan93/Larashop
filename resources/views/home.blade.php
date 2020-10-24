@@ -2,46 +2,48 @@
 @section('title','home')
 
 @section('content')
-	<section id="slider"><!--slider-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-                            @foreach ($sliders as $key=>$slider)
-							<li data-target="#slider-carousel" data-slide-to="{{ $key }}" class="active"></li>
+<section id="slider"><!--slider-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        @foreach ($sliders as $slider)
+                        <li data-target="#slider-carousel" data-slide-to="{{ ($loop->index) }}" class="{{ ($loop->first) ? 'active' : '' }}"></li>
 
-                            @endforeach
+                        @endforeach
+                    </ol>
 
-						</ol>
-						<div class="carousel-inner">
-                            @foreach ($sliders as $slider)
-                            <div class="item active">
-								<div class="col-sm-6">
-									<h1>{{ $slider->title }}</h1>
-                                <h2>{{ $slider->sub_title }}</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
-								</div>
-							</div>
-                            @endforeach
-						</div>
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
-					</div>
+                    <div class="carousel-inner">
+                        @foreach ($sliders as $slider)
+                        <div class="item {{ ($loop->first) ? 'active' : '' }}">
 
-				</div>
-			</div>
-		</div>
-	</section><!--/slider-->
+                            <div class="col-sm-6">
+                                <h1>LARASHOP(ecommerce)</h1>
+                                <h2>{{ $slider->title }}</h2>
+                                <p>{{ $slider->sub_title }}</p>
+                                <button type="button" class="btn btn-default get">Get it now</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="{{ url('storage/slider/'.$slider->image) }}" class="girl img-responsive" alt="">
+                                {{-- <img src="images/home/pricing.png" class="pricing" alt=""> --}}
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
 
 	<section>
 		<div class="container">

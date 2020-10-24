@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class OrderController extends Controller
 {
@@ -65,7 +66,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+         $order=Order::find($id);
+        return view('admin.order.edit',compact('order'));
     }
 
     /**
@@ -77,7 +79,8 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order=Order::find($id);
+        return $request->all();
     }
 
     /**
@@ -88,6 +91,10 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order=Order::find($id);
+        $order->items()->detach();
+        $order->delete();
+        Toastr::success('Order has been Deleted :)', 'Success');
+        return redirect()->back();
     }
 }
