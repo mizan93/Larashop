@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+{{-- @extends('admin.layout.app')
 
 @section('title', 'Order')
 @push('css')
@@ -20,7 +20,7 @@
               <div class="mx-4 py-4">
                   <form action="{{ route('admin.order.update',$order->id) }}" method="post">
                       @csrf
-                      @method('GET')
+                      @method('PUT')
 
                 <h4>Customer details:</h4>
                 <table class="table">
@@ -64,15 +64,11 @@
                             <td> <input type="text" name="name" value="{{ $order->name }}"> </td>
 
                         </tr>
-                        <tr> <td> <label >Code:</label></td>
-                            <td> <input type="text" name="code" value="{{ $order->code }}"> </td>
-                        </tr>
+
                         <tr> <td> <label >Quantity:</label></td>
                             <td> <input type="text" name="code" value="{{ $order->pivot->quantity2 }}"> </td>
                         </tr>
-                        <tr> <td> <label >Price:</label></td>
-                            <td> <input type="text" name="code" value="{{ $order->pivot->price2 }}"> </td>
-                        </tr>
+
                     </tbody>
                         @endforeach
 
@@ -95,4 +91,4 @@
 @endsection
 @push('js')
 
-@endpush
+@endpush --}}

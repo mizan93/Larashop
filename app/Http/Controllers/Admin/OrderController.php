@@ -16,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-         $orders=Order::latest()->get();
+         $orders=Order::orderby('created_at','desc')->get();
          $pending=Order::where('status','pending')->get();
          $processing=Order::where('status','processing')->get();
          $canceled=Order::where('status','canceled')->get();
@@ -80,7 +80,49 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $order=Order::find($id);
-        return $request->all();
+
+        $order->name=$request->name;
+        $order->phone=$request->phone;
+        $order->address=$request->address;
+        $order->city=$request->city;
+        $order->zipcode=$request->zipcode;
+        $order->notes=$request->notes;
+        $order->save();
+        // foreach ($order->items->quantity2 as $qty) {
+        //    $qty=$request->qty;
+        //    $qty->save();
+        // }
+        $order->items()->sync($request->quantity2);
+
+
+        Toastr::success('Order has been Updated :)','Success');
+        return redirect()->back();
+
+
+    }
+    public function processing( $id)
+    {
+        $order=Order::find($id);
+        $order->status='processing';
+        $order->save();
+        Toastr::success('Order status changed to  processing:)','Success');
+        return redirect()->back();
+    }
+    public function completed( $id)
+    {
+        $order=Order::find($id);
+        $order->status='completed';
+        $order->save();
+        Toastr::success('Order has been completed :)','Success');
+        return redirect()->back();
+    }
+    public function canceled( $id)
+    {
+        $order=Order::find($id);
+        $order->status='canceled';
+        $order->save();
+        Toastr::success('Order Canceled:)','Success');
+        return redirect()->back();
     }
 
     /**

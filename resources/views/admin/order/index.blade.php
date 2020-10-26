@@ -46,7 +46,28 @@
                             {{-- <td>{{ $key + 1 }}</td> --}}
                             {{-- <td><img src="{{ url('storage/order/'.$order->image) }}" alt="{{ $order->name }}" class="img-fluid" style="width: 80px; height:60px;" srcset=""></td> --}}
                             <td>{{ $order->id }}</td>
-                            <td>{{ $order->status }}</td>
+                            <td>
+                                @if ($order->status=='processing')
+                                <p>processing</p>
+                                @elseif($order->status=='completed')
+                                <p>completed</p>
+                                @elseif($order->status=='canceled')
+                                <p>canceled</p>
+                                @else
+                               <p>pending</p>
+                                @endif
+
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Status change to
+                                    </button>
+                                    <div class="dropdown-menu"aria-labelledby="dropdownMenuButton">
+                                      <a class="dropdown-item" href="{{ route('admin.order.processing',$order->id) }}">processing</a>
+                                      <a class="dropdown-item" href="{{ route('admin.order.completed',$order->id) }}">completed</a>
+                                      <a class="dropdown-item" href="{{ route('admin.order.canceled',$order->id) }}">canceled</a>
+                                    </div>
+                                </div>
+                                </td>
                             <td>{{ $order->grand_total }}</td>
                             <td>{{ $order->item_count }}</td>
                             <td>{{ $order->is_paid }},{{ $order->payment_method }}</td>
@@ -63,7 +84,7 @@
                                     </button>
                                     <div class="dropdown-menu"aria-labelledby="dropdownMenuButton">
                                       <a class="dropdown-item" href="{{ route('admin.order.show',$order->id) }}">view</a>
-                                      <a class="dropdown-item" href="{{ route('admin.order.edit',$order->id) }}">edit</a>
+                                      {{-- <a class="dropdown-item" href="{{ route('admin.order.edit',$order->id) }}">edit</a> --}}
                                      <form id="delete-form-{{ $order->id }}"  action="{{ route('admin.order.destroy',$order->id) }}" style="display: none;" method="POST">
                                     @csrf
                                     @method('DELETE')

@@ -4,6 +4,7 @@ use App\Brand;
 use App\Category;
 use App\Contact;
 use App\Inbox;
+use App\Order;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
   Route::resource('coupon', 'CouponController');
   Route::resource('slider', 'SliderController');
   Route::resource('order', 'OrderController');
+  Route::get('order/processing/{id}', 'OrderController@processing')->name('order.processing');
+  Route::get('order/completed/{id}', 'OrderController@completed')->name('order.completed');
+  Route::get('order/canceled/{id}', 'OrderController@canceled')->name('order.canceled');
   Route::get('review', 'ReviewController@index')->name('review.index');
   Route::get('review/{id}', 'ReviewController@show')->name('review.show');
   Route::get('users', 'UserController@index')->name('user.index');
@@ -100,6 +104,11 @@ view()->composer('admin.layout.app', function ($view) {
     $inbox=Inbox::where('status','unseen')->latest()->get();
      $view->with('inbox',$inbox);
 });
+view()->composer('admin.layout.app', function ($view) {
+    $order=Order::where('status','pending')->latest()->get();
+     $view->with('order',$order);
+});
 
 //Not found
 Route::get('*','ProductController@notfound')->name('notfound');
+
