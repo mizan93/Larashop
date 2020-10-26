@@ -73,6 +73,10 @@ return redirect()->back();
     }
     public function profile(){
          $profile=Auth()->user();
+        // return $order=Order::all()->user()->orders();
+
+
+
          return view('profile',compact('profile'));
     }
     public function updateProfile(Request $request){
@@ -130,7 +134,7 @@ return redirect()->back();
                 Toastr::error('New password can not be same as old password :)', 'Error');
                 return redirect()->back();
             }
-            
+
         }else{
             Toastr::error('Cureent  password not match :)', 'Error');
             return redirect()->back();

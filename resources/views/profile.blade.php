@@ -11,6 +11,9 @@
 				  <li class="active">Profile</li>
 				</ol>
             </div>
+            <div>
+                
+            </div>
             <h2>User Profile</h2>
             <form action="{{ route('account.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
